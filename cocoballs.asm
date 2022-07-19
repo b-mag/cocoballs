@@ -2,7 +2,7 @@
 ; DEFINE SECTION
 ;***************************************************************************
 ; load vectrex bios routine definitions
-                    INCLUDE  "VECTREX.I"          ; vectrex function includes
+                    INCLUDE  "VECTREX.I"          ; vectrex function INCLUDEs
 
 ;***************************************************************************
 ; Variable / RAM SECTION
@@ -51,7 +51,7 @@ ObjMove             EQU     %00100000       ;Object will move flag
 ObjDraw             EQU     %00010000       ;Object sprite turned on flag
 
 ;random to use
-Random_Word         EQU    Random_MSB
+Random_Word         EQU     Random_MSB
 
 
 
@@ -66,7 +66,7 @@ Random_Word         EQU    Random_MSB
                     ORG      0 
 ; the first few bytes are mANDAtory, otherwise the BIOS will not load
 ; the ROM file, and will STArt MineStorm instead
-                    DB       "g GCE 1998", $80    ; 'g' is copyright sign
+                    DB       "g GCE 2020", $80    ; 'g' is copyright sign
                     DW       music1               ; music from the rom 
                     DB       $F8, $50, $20, -$80  ; hight, width, rel y, rel x (from 0,0) 
                     DB       "COCOBALLS", $80      ; some game information, ending with $80
@@ -185,11 +185,11 @@ MoveObjDone:
           
 MoveBall:
 
-                    LDA                  ObjYpos,u       ;get current y-position  
+                    LDA             ObjYpos,u       ;get current y-position  
                     LDB             #0
-                    ADDD             ObjYdelta,u     ;move to next y-position - BRAndon note: add to d but only COMPARE the top half (A)
-                    CMPA             #BallMinY            ;did we move too far to the left?
-                    BLE                 MoveBall1            ;skip to NEGAtive the speed
+                    ADDD            ObjYdelta,u     ;move to next y-position - BRAndon note: add to d but only COMPARE the top half (A)
+                    CMPA            #BallMinY            ;did we move too far to the left?
+                    BLE             MoveBall1            ;skip to NEGAtive the speed
                     CMPA            #BallMaxY       ;is it too far to left?
                     BLE             Yinrange        ;skip if it is in range
 
@@ -197,31 +197,31 @@ MoveBall:
 MoveBall1:
                     CLRA                         ;get the NEGAtive of the y delta
                     CLRB                         ;by subtracting it from zero
-                    SUBD             ObjYdelta,u
-                    STD                  ObjYdelta,u     ;save NEGAtive speed
-                    ADDA             ObjYpos,u       ;get new Y position
+                    SUBD            ObjYdelta,u
+                    STD             ObjYdelta,u     ;save NEGAtive speed
+                    ADDA            ObjYpos,u       ;get new Y position
 
 Yinrange:
-                    STA                  ObjYpos,u       ;save new Y - position
+                    STA             ObjYpos,u       ;save new Y - position
 
-                    LDA                  ObjXpos,u       ;get current X - position 
+                    LDA             ObjXpos,u       ;get current X - position 
                     LDB             #0
-                    ADDD             ObjXdelta,u     ;move to next X position - BRAndon note: add to d but only COMPARE the top half (A)
+                    ADDD            ObjXdelta,u     ;move to next X position - BRAndon note: add to d but only COMPARE the top half (A)
                     CMPA            #BallMinX     ;did we move too far left/right
                     BLE             MoveBall2       ;skip to NEGAtive the speed
                     CMPA            #BallMaxX   ;Are we too far down?
-                    BLE                  Xinrange          ;skip if it is in range
+                    BLE             Xinrange          ;skip if it is in range
 
 ;This next bit of code reverses the direction of the Xdelta (x-speed) of the dot.
 MoveBall2:
                     CLRA                         ;get the negtive of the y delta
                     CLRB                         ;by subtracting it from zero
-                    SUBD             ObjXdelta,u
-                    STD                  ObjXdelta,u     ;save the NEGAtive speed
-                    ADDA             ObjXpos,u          ;get new y position
+                    SUBD            ObjXdelta,u
+                    STD             ObjXdelta,u     ;save the NEGAtive speed
+                    ADDA            ObjXpos,u          ;get new y position
 
 Xinrange:     
-                    STA                ObjXpos,u       ;save new y position
+                    STA             ObjXpos,u       ;save new y position
                     RTS
 
 
@@ -234,7 +234,7 @@ Xinrange:
 ;#######################################################
 ; FUNCTIONS & DATA INCLUDES
 ;#######################################################
-                    include       "functions.i"
-                    include  "data_graphics.i"
-                    end      
+                    INCLUDE       "functions.i"
+                    INCLUDE       "data_graphics.i"
+                    END      
 ;***************************************************************************
