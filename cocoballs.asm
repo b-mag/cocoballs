@@ -19,7 +19,7 @@ random_c            DS       1
 random_x            DS       1 
 
 
-ObjectSpace         EQU     $200           ;where game ojects go.
+ObjectSpace         DS     $200           ;where game ojects go.
 
 ;Constants
 
